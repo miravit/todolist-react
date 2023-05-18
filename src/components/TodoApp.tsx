@@ -3,6 +3,14 @@ import { Todo } from "../models/Todo";
 import { TodoList } from "./TodoList";
 import { AddTodo } from "./AddTodo";
 import "./scss/TodoApp.scss";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  color: #f00a69;
+  border: 1px solid white;
+  margin: 0;
+  margin-bottom: 15px;
+`;
 
 export const TodoApp = () => {
   const [state, setState] = useState<Todo[]>([
@@ -33,12 +41,13 @@ export const TodoApp = () => {
 
   return (
     <>
+      <Title>Todo List</Title>
+      <AddTodo addTodo={addTodo}></AddTodo>
       <TodoList
         todo={state}
         checkTodo={checkTodo}
         removeTodo={removeTodo}
       ></TodoList>
-      <AddTodo addTodo={addTodo}></AddTodo>
     </>
   );
 };

@@ -6,7 +6,8 @@ const TodoContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 300px;
-  border: 2px solid white;
+  border: 1px solid white;
+  margin-top: 15px;
 
   .todoWrapper {
     display: flex;
@@ -15,17 +16,23 @@ const TodoContainer = styled.div`
     list-style-type: none;
     padding: 0;
   }
+  ul:first-child {
+    margin-top: 40px;
+  }
   li {
     border: 1px solid white;
     width: 100px;
     margin-right: 20px;
     margin-bottom: 20px;
   }
+
   button {
     height: 15px;
     width: 70px;
     font-size: 12px;
     padding: 0;
+    margin-right: 5px;
+    margin-top: 4px;
   }
 `;
 
@@ -55,7 +62,6 @@ export const TodoList = ({ todo, checkTodo, removeTodo }: ITodoProps) => {
 
   return (
     <>
-      <h2>Todo List</h2>
       <TodoContainer>
         <ul className="todoList">
           {todo.map((todo, index) => (
