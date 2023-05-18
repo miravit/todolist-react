@@ -46,13 +46,13 @@ const TodoNotDone = styled.li`
 
 export interface ITodoProps {
   todo: Todo[];
-  checkTodo: (todo: Todo) => void;
+  doneTodo: (todo: Todo) => void;
   removeTodo: (todo: Todo) => void;
 }
 
-export const TodoList = ({ todo, checkTodo, removeTodo }: ITodoProps) => {
+export const TodoList = ({ todo, doneTodo, removeTodo }: ITodoProps) => {
   const handleDoneClick = (todo: Todo) => {
-    checkTodo(todo);
+    doneTodo(todo);
   };
 
   const handleRemoveClick = (todo: Todo) => {

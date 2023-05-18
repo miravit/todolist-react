@@ -24,7 +24,7 @@ export const TodoApp = () => {
     setState([...state, newTodo]);
   };
 
-  const checkTodo = (todo: Todo) => {
+  const doneTodo = (todo: Todo) => {
     const updatedTodos = state.map((t) => {
       if (t === todo) {
         return { ...t, done: !t.done };
@@ -45,7 +45,7 @@ export const TodoApp = () => {
       <AddTodo addTodo={addTodo}></AddTodo>
       <TodoList
         todo={state}
-        checkTodo={checkTodo}
+        doneTodo={doneTodo}
         removeTodo={removeTodo}
       ></TodoList>
     </>

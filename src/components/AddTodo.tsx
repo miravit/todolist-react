@@ -51,30 +51,3 @@ export const AddTodo = ({ addTodo }: IAddTodoProps) => {
     </>
   );
 };
-
-{
-  /* <form onSubmit={handleSubmit}>
-<input
-  type="text"
-  placeholder="name"
-  value={newIceCream.name}
-  name="name"
-  onChange={handleChange}
-></input>
-<input
-  type="number"
-  placeholder="price"
-  value={newIceCream.price}
-  name="price"
-  onChange={handleChange}
-></input>
-<input
-  type="text"
-  placeholder="brand"
-  value={newIceCream.brand}
-  name="brand"
-  onChange={handleChange}
-></input>
-<button>Add</button>
-</form> */
-}
