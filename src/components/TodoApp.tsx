@@ -21,7 +21,9 @@ export const TodoApp = () => {
   ]);
 
   const addTodo = (newTodo: Todo) => {
-    setState([...state, newTodo]);
+    if (newTodo.text.length > 0) {
+      setState([...state, newTodo]);
+    }
   };
 
   const doneTodo = (todo: Todo) => {
