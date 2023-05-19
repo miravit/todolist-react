@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { Todo } from "../models/Todo";
 import { TodoList } from "./TodoList";
 import { AddTodo } from "./AddTodo";
 import "./scss/TodoApp.scss";
 import styled from "styled-components";
+import { TodosReducer } from "../reducers/todoReducer";
 
 const Title = styled.h1`
   color: #f00a69;
@@ -13,30 +14,22 @@ const Title = styled.h1`
 `;
 
 export const TodoApp = () => {
-  const [state, setState] = useState<Todo[]>([
-    new Todo("Bada", false, new Date()),
-    new Todo("Träna", false, new Date()),
-    new Todo("Äta", false, new Date()),
-    new Todo("Städa", false, new Date()),
-  ]);
+  const [state, dispatch] = useReducer(TodosReducer, []);
 
-  const addTodo = (newTodo: Todo) => {
-    setState([...state, newTodo]);
+  const addTodo = (newTodo: string) => {
+    if (newTodo.length > 0) {
+      dispatch({ type: "added", payload: newTodo });
+    }
   };
 
   const doneTodo = (todo: Todo) => {
-    const updatedTodos = state.map((t) => {
-      if (t === todo) {
-        return { ...t, done: !t.done };
-      }
-      return t;
-    });
-    setState(updatedTodos);
+    const IDToString = todo.id.toString();
+    dispatch({ type: "toggled", payload: IDToString });
   };
 
   const removeTodo = (todo: Todo) => {
-    const updatedTodoList = state.filter((t) => t !== todo);
-    setState(updatedTodoList);
+    const IDToString = todo.id.toString();
+    dispatch({ type: "removed", payload: IDToString });
   };
 
   return (

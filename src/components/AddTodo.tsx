@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Todo } from "../models/Todo";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -15,25 +14,21 @@ const Form = styled.form`
 `;
 
 interface IAddTodoProps {
-  addTodo: (newTodo: Todo) => void;
+  addTodo: (newTodo: string) => void;
 }
 
 export const AddTodo = ({ addTodo }: IAddTodoProps) => {
-  const [newTodo, setNewTodo] = useState<Todo[]>([
-    new Todo("", false, new Date()),
-  ]);
+  const [newTodo, setNewTodo] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log("handleChange");
     const value = e.target.value;
-    setNewTodo([new Todo(value, false, new Date())]);
+    setNewTodo(value);
   };
 
   const handleSubmit = (e: FormEvent) => {
-    console.log("handle submibt");
     e.preventDefault();
-    addTodo(newTodo[0]);
-    setNewTodo([new Todo("", false, new Date())]);
+    addTodo(newTodo);
+    setNewTodo("");
   };
 
   return (
@@ -42,7 +37,7 @@ export const AddTodo = ({ addTodo }: IAddTodoProps) => {
         <input
           type="text"
           placeholder="Skriv en todo..."
-          value={newTodo[0].text}
+          value={newTodo}
           //behövs om det är flera inputs //name="text"
           onChange={handleChange}
         ></input>
