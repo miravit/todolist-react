@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
+import { TodoDispatchContext } from "../contexts/todoContext";
 
 const Form = styled.form`
   display: flex;
@@ -13,11 +14,8 @@ const Form = styled.form`
   }
 `;
 
-interface IAddTodoProps {
-  addTodo: (newTodo: string) => void;
-}
-
-export const AddTodo = ({ addTodo }: IAddTodoProps) => {
+export const AddTodo = () => {
+  const dispatch = useContext(TodoDispatchContext);
   const [newTodo, setNewTodo] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +25,11 @@ export const AddTodo = ({ addTodo }: IAddTodoProps) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    addTodo(newTodo);
+    console.log(newTodo);
+    if (newTodo.length > 0) {
+      dispatch({ type: "added", payload: newTodo });
+    } //här kan jag göra else valideringsmeddelande
+
     setNewTodo("");
   };
 

@@ -1,6 +1,8 @@
 import { Todo } from "../models/Todo";
 import styled from "styled-components";
 import "./scss/TodoList.scss";
+import { TodoDispatchContext, TodosContext } from "../contexts/todoContext";
+import { useContext } from "react";
 
 const TodoContainer = styled.div`
   display: flex;
@@ -44,39 +46,43 @@ const TodoNotDone = styled.li`
   text-decoration: none;
 `;
 
-export interface ITodoProps {
-  todo: Todo[];
-  doneTodo: (todo: Todo) => void;
-  removeTodo: (todo: Todo) => void;
-}
+export const TodoList = () => {
+  const todos = useContext(TodosContext);
+  const dispatch = useContext(TodoDispatchContext);
 
-export const TodoList = ({ todo, doneTodo, removeTodo }: ITodoProps) => {
   const handleDoneClick = (todo: Todo) => {
-    doneTodo(todo);
+    dispatch({
+      type: "toggled",
+      payload: todo.id.toString(),
+    });
   };
 
   const handleRemoveClick = (todo: Todo) => {
-    console.log(todo);
-    removeTodo(todo);
+    dispatch({
+      type: "removed",
+      payload: todo.id.toString(),
+    });
   };
+
+  const html = (
+    <ul className="todoList">
+      {todos.map((todo, index) => (
+        <div key={index} className="todoWrapper">
+          {todo.done ? (
+            <TodoDone>{todo.text}</TodoDone>
+          ) : (
+            <TodoNotDone>{todo.text}</TodoNotDone>
+          )}
+          <button onClick={() => handleDoneClick(todo)}>Done</button>
+          <button onClick={() => handleRemoveClick(todo)}>Remove</button>
+        </div>
+      ))}
+    </ul>
+  );
 
   return (
     <>
-      <TodoContainer>
-        <ul className="todoList">
-          {todo.map((todo, index) => (
-            <div key={index} className="todoWrapper">
-              {todo.done ? (
-                <TodoDone>{todo.text}</TodoDone>
-              ) : (
-                <TodoNotDone>{todo.text}</TodoNotDone>
-              )}
-              <button onClick={() => handleDoneClick(todo)}>Done</button>
-              <button onClick={() => handleRemoveClick(todo)}>Remove</button>
-            </div>
-          ))}
-        </ul>
-      </TodoContainer>
+      <TodoContainer>{html}</TodoContainer>
     </>
   );
 };

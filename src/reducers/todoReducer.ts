@@ -1,6 +1,6 @@
 import { Todo } from "../models/Todo";
 
-interface IAction {
+export interface IAction {
   type: string;
   payload: string; //kan vara any eller T. är det string måste vi göra number.ToString()
 }
